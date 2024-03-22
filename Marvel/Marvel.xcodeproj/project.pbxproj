@@ -14,6 +14,8 @@
 		52A19E952BAB296900ACA988 /* MarvelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A19E942BAB296900ACA988 /* MarvelTests.swift */; };
 		52A19E9F2BAB296900ACA988 /* MarvelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A19E9E2BAB296900ACA988 /* MarvelUITests.swift */; };
 		52A19EA12BAB296900ACA988 /* MarvelUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A19EA02BAB296900ACA988 /* MarvelUITestsLaunchTests.swift */; };
+		52A19EB72BAB2D9800ACA988 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52A19EB62BAB2D9800ACA988 /* Colors.xcassets */; };
+		52A19EBF2BAE027C00ACA988 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52A19EBE2BAE027C00ACA988 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		52A19E9A2BAB296900ACA988 /* MarvelUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarvelUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A19E9E2BAB296900ACA988 /* MarvelUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelUITests.swift; sourceTree = "<group>"; };
 		52A19EA02BAB296900ACA988 /* MarvelUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		52A19EB62BAB2D9800ACA988 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		52A19EBE2BAE027C00ACA988 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +98,11 @@
 		52A19E822BAB296500ACA988 /* Marvel */ = {
 			isa = PBXGroup;
 			children = (
+				52A19EBC2BAE023100ACA988 /* Core */,
+				52A19EBB2BAE01D800ACA988 /* Clean */,
+				52A19EAD2BAB2C7A00ACA988 /* Assets */,
 				52A19E832BAB296500ACA988 /* MarvelApp.swift */,
 				52A19E852BAB296500ACA988 /* ContentView.swift */,
-				52A19E872BAB296800ACA988 /* Assets.xcassets */,
 				52A19E892BAB296800ACA988 /* Preview Content */,
 			);
 			path = Marvel;
@@ -125,6 +131,102 @@
 				52A19EA02BAB296900ACA988 /* MarvelUITestsLaunchTests.swift */,
 			);
 			path = MarvelUITests;
+			sourceTree = "<group>";
+		};
+		52A19EAD2BAB2C7A00ACA988 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				52A19E872BAB296800ACA988 /* Assets.xcassets */,
+				52A19EB62BAB2D9800ACA988 /* Colors.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		52A19EAE2BAB2C8900ACA988 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		52A19EAF2BAB2CAB00ACA988 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		52A19EB02BAB2CBC00ACA988 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				52A19EB12BAB2CD600ACA988 /* Api */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		52A19EB12BAB2CD600ACA988 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		52A19EB22BAB2D3100ACA988 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				52A19EB52BAB2D6A00ACA988 /* Repositories */,
+				52A19EB42BAB2D5A00ACA988 /* UseCases */,
+				52A19EB32BAB2D5100ACA988 /* Models */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		52A19EB32BAB2D5100ACA988 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		52A19EB42BAB2D5A00ACA988 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		52A19EB52BAB2D6A00ACA988 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		52A19EBB2BAE01D800ACA988 /* Clean */ = {
+			isa = PBXGroup;
+			children = (
+				52A19EB02BAB2CBC00ACA988 /* Data */,
+				52A19EB22BAB2D3100ACA988 /* Domain */,
+				52A19EAE2BAB2C8900ACA988 /* Presentation */,
+				52A19EAF2BAB2CAB00ACA988 /* Widgets */,
+			);
+			path = Clean;
+			sourceTree = "<group>";
+		};
+		52A19EBC2BAE023100ACA988 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				52A19EBD2BAE024000ACA988 /* Resources */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		52A19EBD2BAE024000ACA988 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				52A19EBE2BAE027C00ACA988 /* Localizable.strings */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +333,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52A19EB72BAB2D9800ACA988 /* Colors.xcassets in Resources */,
+				52A19EBF2BAE027C00ACA988 /* Localizable.strings in Resources */,
 				52A19E8B2BAB296800ACA988 /* Preview Assets.xcassets in Resources */,
 				52A19E882BAB296800ACA988 /* Assets.xcassets in Resources */,
 			);
