@@ -11,7 +11,7 @@ import SwiftUI
 struct MarvelApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView(homeViewModel: HomeViewModel())
+            HomeView(homeViewModel: HomeViewModel(moviesFetched: [], movieFetchUseCase: DefaultMovieFetchUseCase(movieRepository: MovieApiFetch(movieApi: MoviesApi()))))
         }
     }
 }

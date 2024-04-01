@@ -24,6 +24,10 @@
 		522276BB2BB3D22B0000FE41 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522276BA2BB3D22B0000FE41 /* HomeViewModel.swift */; };
 		522276BD2BB3DE730000FE41 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522276BC2BB3DE730000FE41 /* MovieCell.swift */; };
 		522276BF2BB5BB6E0000FE41 /* SelectedMovieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522276BE2BB5BB6E0000FE41 /* SelectedMovieData.swift */; };
+		522276C12BB675CA0000FE41 /* MovieFetchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522276C02BB675CA0000FE41 /* MovieFetchUseCase.swift */; };
+		522276C32BB676590000FE41 /* MovieRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522276C22BB676590000FE41 /* MovieRepository.swift */; };
+		522276C52BB678EC0000FE41 /* MovieApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522276C42BB678EC0000FE41 /* MovieApi.swift */; };
+		522276C82BB67B7F0000FE41 /* MovieError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522276C72BB67B7F0000FE41 /* MovieError.swift */; };
 		52A19E842BAB296500ACA988 /* MarvelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A19E832BAB296500ACA988 /* MarvelApp.swift */; };
 		52A19E862BAB296500ACA988 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A19E852BAB296500ACA988 /* ContentView.swift */; };
 		52A19E882BAB296800ACA988 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52A19E872BAB296800ACA988 /* Assets.xcassets */; };
@@ -70,6 +74,10 @@
 		522276BA2BB3D22B0000FE41 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		522276BC2BB3DE730000FE41 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		522276BE2BB5BB6E0000FE41 /* SelectedMovieData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedMovieData.swift; sourceTree = "<group>"; };
+		522276C02BB675CA0000FE41 /* MovieFetchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFetchUseCase.swift; sourceTree = "<group>"; };
+		522276C22BB676590000FE41 /* MovieRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRepository.swift; sourceTree = "<group>"; };
+		522276C42BB678EC0000FE41 /* MovieApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieApi.swift; sourceTree = "<group>"; };
+		522276C72BB67B7F0000FE41 /* MovieError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieError.swift; sourceTree = "<group>"; };
 		52A19E802BAB296500ACA988 /* Marvel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Marvel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A19E832BAB296500ACA988 /* MarvelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelApp.swift; sourceTree = "<group>"; };
 		52A19E852BAB296500ACA988 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -212,6 +220,7 @@
 		52A19EB12BAB2CD600ACA988 /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				522276C42BB678EC0000FE41 /* MovieApi.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -243,6 +252,7 @@
 				522276A22BB3BF310000FE41 /* Thumbnail.swift */,
 				522276AC2BB3BFF20000FE41 /* UrlsItem.swift */,
 				522276BE2BB5BB6E0000FE41 /* SelectedMovieData.swift */,
+				522276C72BB67B7F0000FE41 /* MovieError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -250,6 +260,7 @@
 		52A19EB42BAB2D5A00ACA988 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				522276C02BB675CA0000FE41 /* MovieFetchUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -257,6 +268,7 @@
 		52A19EB52BAB2D6A00ACA988 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				522276C22BB676590000FE41 /* MovieRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -425,11 +437,15 @@
 				522276BD2BB3DE730000FE41 /* MovieCell.swift in Sources */,
 				522276BF2BB5BB6E0000FE41 /* SelectedMovieData.swift in Sources */,
 				522276A52BB3BF590000FE41 /* Comics.swift in Sources */,
+				522276C52BB678EC0000FE41 /* MovieApi.swift in Sources */,
+				522276C12BB675CA0000FE41 /* MovieFetchUseCase.swift in Sources */,
 				5222769D2BB3BDAF0000FE41 /* AllCharactersResponse.swift in Sources */,
 				522276A72BB3BF760000FE41 /* Series.swift in Sources */,
 				522276AB2BB3BFCE0000FE41 /* Events.swift in Sources */,
 				522276B22BB3C09D0000FE41 /* SeriesItem.swift in Sources */,
 				5222769F2BB3BEA00000FE41 /* AllCharactersData.swift in Sources */,
+				522276C82BB67B7F0000FE41 /* MovieError.swift in Sources */,
+				522276C32BB676590000FE41 /* MovieRepository.swift in Sources */,
 				522276A32BB3BF310000FE41 /* Thumbnail.swift in Sources */,
 				522276A12BB3BEF60000FE41 /* Movie.swift in Sources */,
 				522276AF2BB3C03C0000FE41 /* ComicsItem.swift in Sources */,

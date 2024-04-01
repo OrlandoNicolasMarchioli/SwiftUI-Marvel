@@ -9,12 +9,9 @@ import SwiftUI
 import Combine
 
 struct HomeView: View {
-    @ObservedObject var homeViewModel: HomeViewModel
+    @ObservedObject var homeViewModel = HomeViewModel(moviesFetched: [], movieFetchUseCase: DefaultMovieFetchUseCase(movieRepository: MovieApiFetch(movieApi: MoviesApi())))
     @State var movies: [Movie] = []
-    
-    init(homeViewModel: HomeViewModel) {
-        self.homeViewModel = homeViewModel
-    }
+
     
     let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -64,12 +61,17 @@ struct HomeView: View {
                 }
             }
         }
+        .onAppear {
+            homeViewModel.fetchMovies()
+        }
         .safeAreaPadding(.top,100)
     }
 }
 
-#Preview {
-    HomeView(homeViewModel: HomeViewModel())
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
+    }
 }
 
 
