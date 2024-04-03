@@ -15,7 +15,6 @@ struct HomeView: View {
     
     let columns = [
         GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
     ]
     
@@ -49,9 +48,9 @@ struct HomeView: View {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(homeViewModel.moviesFetched, id: \.id) { movie in
-                            MovieCellChip(item: movie,
-                                          getMovieImageUrl: {$0.thumbnail.path},
-                                          getMovieName: {$0.name},
+                            MovieCellChip<Movie>(item: movie,
+                                                 getMovieImageUrl: {item in item.thumbnail.path + item.thumbnail.fileExtension},
+                                                 getMovieName: {item in item.name},
                                           onChipTapped: {
                                 
                             })

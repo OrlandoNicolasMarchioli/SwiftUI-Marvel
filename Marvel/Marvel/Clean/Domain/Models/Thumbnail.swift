@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct Thumbnail: Codable{
+struct Thumbnail: Codable {
     let path: String
-    let ext: String
+    let fileExtension: String
+
+    enum CodingKeys: String, CodingKey {
+        case path
+        case fileExtension = "extension"
+    }
 }

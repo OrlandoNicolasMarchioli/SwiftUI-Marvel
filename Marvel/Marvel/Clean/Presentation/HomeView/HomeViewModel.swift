@@ -21,18 +21,20 @@ class HomeViewModel: ObservableObject{
     
     func fetchMovies() {
         movieFetchUseCase.getMovies()
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:
                     break
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        
+                        //TODO: Manage error
                     }
                 }
             },receiveValue: {
-                movies in
-                self.moviesFetched = movies
+                movies in DispatchQueue.main.async {
+                    self.moviesFetched = movies
+                }
             })
             .store(in: &cancellables)
     }

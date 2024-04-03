@@ -32,8 +32,6 @@ class MovieApiFetch: MovieRepository{
                 }
                 promise(.success(response.data.results))
             }
-            let movies = self.movieApi.getAllMovies()
-            promise(.success(movies))
         }
         .eraseToAnyPublisher()
     }

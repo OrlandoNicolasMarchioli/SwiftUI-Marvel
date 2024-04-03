@@ -16,10 +16,6 @@ class MoviesApi: MoviesApiProtocol {
     
     var movies: [Movie] = []
     
-    init() {
-        self.movies = []
-    }
-    
     func fetchMovieData(completion: @escaping (AllCharactersResponse?, Error?) -> Void)  {
         guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=b209d62336cd3526e0eb13f0bb429891&hash=ac374d862543660c1a035d30825a7a27") else {
             return

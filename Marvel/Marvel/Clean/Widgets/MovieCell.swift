@@ -52,7 +52,7 @@ struct MovieCellChip<T>: View {
             }
             .padding()
             Text(getMovieName(item))
-                .foregroundColor(.black)
+                .foregroundColor(Color("MovieTitle"))
                 .font(.headline)
                 .padding(.top, 3)
         }
