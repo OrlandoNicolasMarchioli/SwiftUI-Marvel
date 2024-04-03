@@ -10,45 +10,51 @@ import Combine
 
 struct HomeView: View {
     @ObservedObject var homeViewModel = HomeViewModel(movieFetchUseCase: DefaultCharacterFetchUseCase(characterRepository: CharacterApiFetch(movieApi: MarvelApi())))
-    @State var movies: [Character] = []
     
     var body: some View {
-        ZStack{
+        ZStack {
             Image("ImageBackGround")
                 .resizable()
                 .scaledToFill()
                 .edgesIgnoringSafeArea(.all)
-            VStack(){
-                HStack{
-                    Button(action: {
-                    }) {
-                        Image(systemName:"list.bullet")
+            
+            VStack {
+                HStack {
+                    Button(action: {}) {
+                        Image(systemName: "list.bullet")
                             .foregroundColor(.black)
                     }
                     .padding(.leading)
+                    
                     Spacer()
+                    
                     Image("MarvelLogo")
+                    
                     Spacer()
-                    Button(action: {
-                    }) {
+                    
+                    Button(action: {}) {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.black)
-                    }.padding(.trailing)
+                    }
+                    .padding(.trailing)
                 }
                 .frame(height: 64)
-                .background(.white)
+                .background(Color.white)
                 .padding(.top)
-                Spacer()
+                
                 ScrollView {
-                        CharacterView(characters: homeViewModel.state.characters)
-                        .padding(.bottom,75)
+                    CharacterView(characters: homeViewModel.state.characters)
+                        .padding(.bottom, 75)
+                        .padding(.top, 16)
+                        .frame(maxWidth: .infinity)
                 }
+                .padding(.horizontal)
             }
+            .padding(.top,45)
         }
-        .onAppear(){
+        .onAppear() {
             homeViewModel.fetchCharacters()
         }
-        .safeAreaPadding(.top,100)
     }
 }
 
