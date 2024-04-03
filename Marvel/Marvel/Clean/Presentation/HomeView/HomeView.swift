@@ -49,7 +49,7 @@ struct HomeView: View {
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(homeViewModel.moviesFetched, id: \.id) { movie in
                             MovieCellChip<Movie>(item: movie,
-                                                 getMovieImageUrl: {item in item.thumbnail.path + item.thumbnail.fileExtension},
+                                                 getMovieImageUrl: {item in item.thumbnail.path + "." + item.thumbnail.fileExtension},
                                                  getMovieName: {item in item.name},
                                           onChipTapped: {
                                 

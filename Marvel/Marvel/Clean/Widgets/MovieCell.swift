@@ -30,7 +30,7 @@ struct MovieCellChip<T>: View {
     
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: getMovieImageUrl(item))) { phase in
+            AsyncImage(url: URL(string: convertToSecureURL(getMovieImageUrl(item)))) { phase in
                 switch phase {
                 case .empty:
                     ProgressView()
@@ -57,6 +57,14 @@ struct MovieCellChip<T>: View {
                 .padding(.top, 3)
         }
     }
+}
+
+func convertToSecureURL(_ urlString: String) -> String {
+    var secureURLString = urlString
+    if urlString.hasPrefix("http://") {
+        secureURLString = "https://" + urlString.dropFirst(7)
+    }
+    return secureURLString
 }
 
 #Preview{
