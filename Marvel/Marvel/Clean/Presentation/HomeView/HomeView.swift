@@ -9,8 +9,8 @@ import SwiftUI
 import Combine
 
 struct HomeView: View {
-    @ObservedObject var homeViewModel = HomeViewModel(moviesFetched: [], movieFetchUseCase: DefaultMovieFetchUseCase(movieRepository: MovieApiFetch(movieApi: MoviesApi())))
-    @State var movies: [Movie] = []
+    @ObservedObject var homeViewModel = HomeViewModel(moviesFetched: [], movieFetchUseCase: DefaultCharacterFetchUseCase(characterRepository: CharacterApiFetch(movieApi: MarvelApi())))
+    @State var movies: [Character] = []
 
     
     let columns = [
@@ -47,21 +47,14 @@ struct HomeView: View {
                 Spacer()
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(homeViewModel.moviesFetched, id: \.id) { movie in
-                            MovieCellChip<Movie>(item: movie,
-                                                 getMovieImageUrl: {item in item.thumbnail.path + "." + item.thumbnail.fileExtension},
-                                                 getMovieName: {item in item.name},
-                                          onChipTapped: {
-                                
-                            })
-                        }
+                        CharacterView()
                     }
                     .padding()
                 }
             }
         }
         .onAppear {
-            homeViewModel.fetchMovies()
+            homeViewModel.fetchCharacters()
         }
         .safeAreaPadding(.top,100)
     }

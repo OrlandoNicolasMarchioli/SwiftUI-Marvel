@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum MovieError: Error{
+enum CharacterError: Error{
     case badCredentials
 }

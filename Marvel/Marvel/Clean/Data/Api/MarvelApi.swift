@@ -7,17 +7,26 @@
 
 import Foundation
 
-protocol MoviesApiProtocol {
-    func fetchMovieData(completion: @escaping (AllCharactersResponse?, Error?) -> Void)
-    func getAllMovies() -> [Movie]
+protocol MarvelApiProtocol {
+    func fetchCharactersData(completion: @escaping (AllCharactersResponse?, Error?) -> Void)
+    func getAllCharacters() -> [Character]
 }
 
-class MoviesApi: MoviesApiProtocol {
+class MarvelApi: MarvelApiProtocol {
     
-    var movies: [Movie] = []
+    var movies: [Character] = []
     
-    func fetchMovieData(completion: @escaping (AllCharactersResponse?, Error?) -> Void)  {
-        guard let url = URL(string: "https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=b209d62336cd3526e0eb13f0bb429891&hash=ac374d862543660c1a035d30825a7a27") else {
+    func fetchCharactersData(completion: @escaping (AllCharactersResponse?, Error?) -> Void)  {
+        guard let credentials = NSLocalizedString("CREDENTIALS", comment: "") as String?,
+              let baseURLString = NSLocalizedString("GET_ALL_CHARACTERS_URL", comment: "") as String? else {
+            print("Error: Could not retrieve localized strings.")
+            return
+        }
+        
+        let urlString = baseURLString + credentials
+        
+        guard let url = URL(string: urlString) else {
+            print("Error: Invalid URL")
             return
         }
         
@@ -48,7 +57,7 @@ class MoviesApi: MoviesApiProtocol {
         }
     }
     
-    func getAllMovies() -> [Movie]{
+    func getAllCharacters() -> [Character]{
         return self.movies
     }
 }

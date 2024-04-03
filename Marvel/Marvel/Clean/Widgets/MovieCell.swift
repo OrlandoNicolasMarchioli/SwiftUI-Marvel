@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 struct MovieCell<T>: View {
-    @State var movie: Movie
+    @State var movie: Character
     
-    init(movie: Movie) {
+    init(movie: Character) {
         self.movie = movie
     }
     
@@ -22,7 +22,7 @@ struct MovieCell<T>: View {
     }
 }
 
-struct MovieCellChip<T>: View {
+struct HomeCellChip<T>: View {
     let item: T
     let getMovieImageUrl: ((T) -> String)
     let getMovieName: ((T) -> String)
@@ -68,6 +68,6 @@ func convertToSecureURL(_ urlString: String) -> String {
 }
 
 #Preview{
-    MovieCellChip<SelectedMovieData>(item: SelectedMovieData(imageUrl: "https://placekitten.com/200/300", movieName: "Kitten Fight"), getMovieImageUrl: {item in return item.imageUrl}, getMovieName: {item in return item.movieName}, onChipTapped: {} )
+    HomeCellChip<SelectedMovieData>(item: SelectedMovieData(imageUrl: "https://placekitten.com/200/300", movieName: "Kitten Fight"), getMovieImageUrl: {item in return item.imageUrl}, getMovieName: {item in return item.movieName}, onChipTapped: {} )
 }
 

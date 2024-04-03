@@ -9,14 +9,14 @@ import Foundation
 import Combine
 
 
-class HomeViewModel: ObservableObject{
+class CharacterViewModel: ObservableObject{
     @Published var charactersFetched : [Character] = []
     private let characterFetchUseCase : DefaultCharacterFetchUseCase
     private var cancellables: Set<AnyCancellable> = []
     
-    init(moviesFetched: [Character], movieFetchUseCase: DefaultCharacterFetchUseCase) {
-        self.charactersFetched = moviesFetched
-        self.characterFetchUseCase = movieFetchUseCase
+    init(charactersFetched: [Character], characterFetchUseCase: DefaultCharacterFetchUseCase) {
+        self.charactersFetched = charactersFetched
+        self.characterFetchUseCase = characterFetchUseCase
     }
     
     func fetchCharacters() {

@@ -8,20 +8,20 @@
 import Foundation
 import Combine
 
-protocol MoviFetchUseCase {
-    func getMovies() -> AnyPublisher<[Movie], Error>
+protocol CharacterFetchUseCase {
+    func getCharacters() -> AnyPublisher<[Character], Error>
 }
 
-class DefaultMovieFetchUseCase: MoviFetchUseCase {
+class DefaultCharacterFetchUseCase: CharacterFetchUseCase {
     
-    private let movieRepository: MovieRepository
+    private let characterRepository: CharacterRepository
     
-    init(movieRepository: MovieRepository) {
-        self.movieRepository = movieRepository
+    init(characterRepository: CharacterRepository) {
+        self.characterRepository = characterRepository
     }
     
-    func getMovies() -> AnyPublisher<[Movie], Error> {
-        return movieRepository.fetchAllMoviesData().map{result in
+    func getCharacters() -> AnyPublisher<[Character], Error> {
+        return characterRepository.fetchAllCharactersData().map{result in
             return result
         }.mapError{err in
             return err

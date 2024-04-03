@@ -12,5 +12,5 @@ struct AllCharactersData: Codable{
     let limit: Int
     let total: Int
     let count: Int
-    let results: [Movie]
+    let results: [Character]
 }
