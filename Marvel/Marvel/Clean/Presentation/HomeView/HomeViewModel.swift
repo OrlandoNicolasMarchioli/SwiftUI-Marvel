@@ -10,12 +10,13 @@ import Combine
 
 
 class HomeViewModel: ObservableObject{
-    @Published var charactersFetched : [Character] = []
+    @Published var state : HomeListState
+    static let defaultState = HomeListState(characters: [], hasError: false)
     private let characterFetchUseCase : DefaultCharacterFetchUseCase
     private var cancellables: Set<AnyCancellable> = []
     
-    init(moviesFetched: [Character], movieFetchUseCase: DefaultCharacterFetchUseCase) {
-        self.charactersFetched = moviesFetched
+    init(initialState: HomeListState = defaultState, movieFetchUseCase: DefaultCharacterFetchUseCase) {
+        self.state = initialState
         self.characterFetchUseCase = movieFetchUseCase
     }
     
@@ -28,12 +29,12 @@ class HomeViewModel: ObservableObject{
                     break
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        //TODO: Manage error
+                        self?.state = (self?.state.clone(withHasError: true))!
                     }
                 }
             },receiveValue: {
                 characters in DispatchQueue.main.async {
-                    self.charactersFetched = characters
+                    self.state = self.state.clone(withCharacters:characters,withHasError: false)
                 }
             })
             .store(in: &cancellables)

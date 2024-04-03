@@ -9,14 +9,8 @@ import SwiftUI
 import Combine
 
 struct HomeView: View {
-    @ObservedObject var homeViewModel = HomeViewModel(moviesFetched: [], movieFetchUseCase: DefaultCharacterFetchUseCase(characterRepository: CharacterApiFetch(movieApi: MarvelApi())))
+    @ObservedObject var homeViewModel = HomeViewModel(movieFetchUseCase: DefaultCharacterFetchUseCase(characterRepository: CharacterApiFetch(movieApi: MarvelApi())))
     @State var movies: [Character] = []
-
-    
-    let columns = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16)
-    ]
     
     var body: some View {
         ZStack{
@@ -46,14 +40,12 @@ struct HomeView: View {
                 .padding(.top)
                 Spacer()
                 ScrollView {
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        CharacterView()
-                    }
-                    .padding()
+                        CharacterView(characters: homeViewModel.state.characters)
+                        .padding(.bottom,75)
                 }
             }
         }
-        .onAppear {
+        .onAppear(){
             homeViewModel.fetchCharacters()
         }
         .safeAreaPadding(.top,100)
