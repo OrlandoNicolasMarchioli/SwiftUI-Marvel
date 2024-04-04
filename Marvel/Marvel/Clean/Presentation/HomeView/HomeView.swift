@@ -12,48 +12,51 @@ struct HomeView: View {
     @ObservedObject var homeViewModel = HomeViewModel(movieFetchUseCase: DefaultCharacterFetchUseCase(characterRepository: CharacterApiFetch(movieApi: MarvelApi())))
     
     var body: some View {
-        ZStack {
-            Image("ImageBackGround")
-                .resizable()
-                .scaledToFill()
-                .edgesIgnoringSafeArea(.all)
-            
-            VStack {
-                HStack {
-                    Button(action: {}) {
-                        Image(systemName: "list.bullet")
-                            .foregroundColor(.black)
-                    }
-                    .padding(.leading)
-                    
-                    Spacer()
-                    
-                    Image("MarvelLogo")
-                    
-                    Spacer()
-                    
-                    Button(action: {}) {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.black)
-                    }
-                    .padding(.trailing)
-                }
-                .frame(height: 64)
-                .background(Color.white)
-                .padding(.top)
+        GeometryReader { geometry in
+            ZStack {
+                Image("ImageBackGround")
+                    .resizable()
+                    .edgesIgnoringSafeArea(.all)
                 
-                ScrollView {
-                    CharacterView(characters: homeViewModel.state.characters)
-                        .padding(.bottom, 75)
+                VStack {
+                    HStack {
+                        Button(action: {}) {
+                            Image(systemName: "list.bullet")
+                                .foregroundColor(.black)
+                        }
+                        .padding(.leading)
+                        
+                        Spacer()
+                        
+                        Image("MarvelLogo")
+                        
+                        Spacer()
+                        
+                        Button(action: {}) {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.black)
+                        }
+                        .padding(.trailing)
+                    }
+                    .frame(height: 64)
+                    .background(Color.white)
+                    
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            CharacterView(characters: homeViewModel.state.characters)
+                                .padding(.horizontal)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(.top, 16)
-                        .frame(maxWidth: .infinity)
+                    }
+                    .padding(.horizontal)
+                    
                 }
-                .padding(.horizontal)
+                .padding(.top)
             }
-            .padding(.top,45)
-        }
-        .onAppear() {
-            homeViewModel.fetchCharacters()
+            .onAppear() {
+                homeViewModel.fetchCharacters()
+            }
         }
     }
 }
