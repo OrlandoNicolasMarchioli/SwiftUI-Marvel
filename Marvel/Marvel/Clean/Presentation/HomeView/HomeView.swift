@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct HomeView: View {
-    @ObservedObject var homeViewModel = HomeViewModel(movieFetchUseCase: DefaultCharacterFetchUseCase(characterRepository: CharacterApiFetch(movieApi: MarvelApi())))
+    @ObservedObject var homeViewModel = HomeViewModel(movieFetchUseCase: DefaultMarvelFetchUseCase(characterRepository: MarvelApiFetch(movieApi: MarvelApi())))
     
     var body: some View {
         GeometryReader { geometry in
@@ -45,6 +45,7 @@ struct HomeView: View {
                         VStack(spacing: 16) {
                             CharacterView(characters: homeViewModel.state.characters)
                                 .padding(.horizontal)
+                            ComicView(comics: homeViewModel.state.comics)
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(.top, 16)
@@ -55,7 +56,7 @@ struct HomeView: View {
                 .padding(.top)
             }
             .onAppear() {
-                homeViewModel.fetchCharacters()
+                homeViewModel.fetchMarvelData()
             }
         }
     }

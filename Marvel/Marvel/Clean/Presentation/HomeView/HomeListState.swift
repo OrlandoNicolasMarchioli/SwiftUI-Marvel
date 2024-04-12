@@ -9,9 +9,11 @@ import Foundation
 
 struct HomeListState{
     let characters: [Character]
+    let comics: [ComicData]
     let hasError: Bool
+    let hasMessage: String
     
-    func clone(withCharacters: [Character]? = nil, withHasError: Bool? = nil) -> HomeListState{
-        return HomeListState(characters: withCharacters ?? self.characters, hasError: withHasError ?? hasError)
+    func clone(withCharacters: [Character]? = nil, withComics: [ComicData]? = nil, withHasError: Bool? = nil, withHasMessage: String? = nil) -> HomeListState{
+        return HomeListState(characters: withCharacters ?? self.characters, comics: withComics ?? self.comics ,hasError: withHasError ?? hasError, hasMessage: withHasMessage ?? hasMessage)
     }
 }

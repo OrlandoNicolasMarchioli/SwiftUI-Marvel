@@ -11,17 +11,22 @@ import Combine
 
 class HomeViewModel: ObservableObject{
     @Published var state : HomeListState
-    static let defaultState = HomeListState(characters: [], hasError: false)
-    private let characterFetchUseCase : DefaultCharacterFetchUseCase
+    static let defaultState = HomeListState(characters: [], comics: [], hasError: false, hasMessage: "")
+    private let marvelFetchUseCase : DefaultMarvelFetchUseCase
     private var cancellables: Set<AnyCancellable> = []
     
-    init(initialState: HomeListState = defaultState, movieFetchUseCase: DefaultCharacterFetchUseCase) {
+    init(initialState: HomeListState = defaultState, movieFetchUseCase: DefaultMarvelFetchUseCase) {
         self.state = initialState
-        self.characterFetchUseCase = movieFetchUseCase
+        self.marvelFetchUseCase = movieFetchUseCase
+    }
+    
+    func fetchMarvelData() -> Void{
+        fetchCharacters()
+        fetchComics()
     }
     
     func fetchCharacters() {
-        characterFetchUseCase.getCharacters()
+        marvelFetchUseCase.getCharacters()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
@@ -29,12 +34,32 @@ class HomeViewModel: ObservableObject{
                     break
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        self?.state = (self?.state.clone(withHasError: true))!
+                        self?.state = (self?.state.clone(withHasError: true,withHasMessage: error.localizedDescription))!
                     }
                 }
             },receiveValue: {
                 characters in DispatchQueue.main.async {
                     self.state = self.state.clone(withCharacters:characters,withHasError: false)
+                }
+            })
+            .store(in: &cancellables)
+    }
+    
+    func fetchComics(){
+        marvelFetchUseCase.getComics()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self?.state = (self?.state.clone(withHasError: true,withHasMessage: error.localizedDescription))!
+                    }
+                }
+            },receiveValue: {
+                comics in DispatchQueue.main.async {
+                    self.state = self.state.clone(withComics:comics,withHasError: false)
                 }
             })
             .store(in: &cancellables)

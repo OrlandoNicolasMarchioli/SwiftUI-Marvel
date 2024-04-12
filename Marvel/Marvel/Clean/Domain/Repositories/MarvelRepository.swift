@@ -10,11 +10,12 @@ import Foundation
 import Foundation
 import Combine
 
-protocol CharacterRepository{
+protocol MarvelRepository{
     func fetchAllCharactersData() -> AnyPublisher<[Character], CharacterError>
+    func fetchAllComicsData() -> AnyPublisher<[ComicData], ComicError>
 }
 
-class CharacterApiFetch: CharacterRepository{
+class MarvelApiFetch: MarvelRepository{
     
     private var marvelApi: MarvelApiProtocol
     
@@ -28,6 +29,19 @@ class CharacterApiFetch: CharacterRepository{
             self.marvelApi.fetchCharactersData(){ (response, err) in
                 guard let response = response, err == nil else {
                     promise(.failure(.badCredentials))
+                    return
+                }
+                promise(.success(response.data.results))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func fetchAllComicsData() -> AnyPublisher<[ComicData], ComicError> {
+        return Future<[ComicData], ComicError> { promise in
+            self.marvelApi.fetchComicsData(){ (response, err) in
+                guard let response = response, err == nil else {
+                    promise(.failure(.badFetch))
                     return
                 }
                 promise(.success(response.data.results))
