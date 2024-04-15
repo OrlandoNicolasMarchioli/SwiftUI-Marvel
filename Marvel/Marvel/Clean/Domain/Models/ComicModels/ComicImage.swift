@@ -7,9 +7,8 @@
 
 import Foundation
 
-struct ComicImage: Decodable {
-    let path: String
-    let fileExtension: String
+struct ComicImage: Codable {
+    let path, fileExtension: String?
 
     enum CodingKeys: String, CodingKey {
         case path

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DateInfo: Codable{
-    let type: String
-    let date: String
+struct ComicDate: Codable{
+    let type: String?
+    let date: String?
 }

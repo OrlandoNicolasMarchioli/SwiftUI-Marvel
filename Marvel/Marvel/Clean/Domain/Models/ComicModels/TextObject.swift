@@ -8,7 +8,5 @@
 import Foundation
 
 struct TextObject: Codable {
-    let type: String
-    let language: String
-    let text: String
+    let type, language, text: String?
 }

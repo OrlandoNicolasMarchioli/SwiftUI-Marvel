@@ -9,14 +9,14 @@ import Foundation
 
 protocol MarvelApiProtocol {
     func fetchCharactersData(completion: @escaping (AllCharactersResponse?, Error?) -> Void)
-    func fetchComicsData(completion: @escaping (AllComicsResponse?, Error?) -> Void)
+    func fetchComicsData(completion: @escaping (ComicDataWrrapper?, Error?) -> Void)
     func getAllCharacters() -> [Character]
 }
 
 class MarvelApi: MarvelApiProtocol {
     
     var characters: [Character] = []
-    var comics: [ComicData] = []
+    var comics: [Comic] = []
     
     func fetchCharactersData(completion: @escaping (AllCharactersResponse?, Error?) -> Void)  {
         let urlString = validateCredentialsAndUrl(credentials: "CREDENTIALS", url: "GET_ALL_CHARACTERS_URL")
@@ -45,7 +45,7 @@ class MarvelApi: MarvelApiProtocol {
         }.resume()
     }
     
-    func fetchComicsData(completion: @escaping (AllComicsResponse?, Error?) -> Void) {
+    func fetchComicsData(completion: @escaping (ComicDataWrrapper?, Error?) -> Void) {
         let urlString = validateCredentialsAndUrl(credentials: "CREDENTIALS", url: "GET_ALL_COMICS_URL")
                 
         guard let url = URL(string: urlString) else {
@@ -62,7 +62,7 @@ class MarvelApi: MarvelApiProtocol {
             
             do {
                 let decoder = JSONDecoder()
-                let response = try decoder.decode(AllComicsResponse.self, from: data)
+                let response = try decoder.decode(ComicDataWrrapper.self, from: data)
                 self.extractAllComicsFromResponse(response: response)
                 completion(response, nil)
             } catch {
@@ -77,8 +77,8 @@ class MarvelApi: MarvelApiProtocol {
         self.characters.append(contentsOf: response.data.results)
     }
     
-    private func extractAllComicsFromResponse(response : AllComicsResponse) -> Void{
-        self.comics.append(contentsOf: response.data.results)
+    private func extractAllComicsFromResponse(response : ComicDataWrrapper) -> Void{
+        self.comics.append(contentsOf: response.data?.results ?? [])
     }
     
     private func validateCredentialsAndUrl(credentials: String, url: String) -> String{

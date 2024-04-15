@@ -7,8 +7,6 @@
 
 import Foundation
 
-struct Creator: Decodable {
-    let resourceURI: String
-    let name: String
-    let role: String
+struct CreatorSummary: Codable {
+    let resourceURI, name, role: String?
 }

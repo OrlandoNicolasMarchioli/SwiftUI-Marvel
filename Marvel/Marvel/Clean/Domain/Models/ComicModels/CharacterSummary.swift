@@ -7,7 +7,6 @@
 
 import Foundation
 
-struct ComicCharacter: Decodable {
-    let resourceURI: String
-    let name: String
+struct CharacterSummary: Codable {
+    let resourceURI, name, role: String?
 }

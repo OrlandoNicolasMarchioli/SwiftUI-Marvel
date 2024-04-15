@@ -10,7 +10,7 @@ import Combine
 
 protocol MarvelFetchUseCase {
     func getCharacters() -> AnyPublisher<[Character], Error>
-    func getComics() -> AnyPublisher<[ComicData],Error>
+    func getComics() -> AnyPublisher<[Comic],Error>
 }
 
 class DefaultMarvelFetchUseCase: MarvelFetchUseCase {
@@ -30,7 +30,7 @@ class DefaultMarvelFetchUseCase: MarvelFetchUseCase {
         .eraseToAnyPublisher()
     }
     
-    func getComics() -> AnyPublisher<[ComicData], Error> {
+    func getComics() -> AnyPublisher<[Comic], Error> {
         return marvelRepository.fetchAllComicsData().map{result in
                 return result
         }.mapError{err in

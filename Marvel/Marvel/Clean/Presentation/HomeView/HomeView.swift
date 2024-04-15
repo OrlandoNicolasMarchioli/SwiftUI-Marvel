@@ -10,7 +10,8 @@ import Combine
 
 struct HomeView: View {
     @ObservedObject var homeViewModel = HomeViewModel(movieFetchUseCase: DefaultMarvelFetchUseCase(characterRepository: MarvelApiFetch(movieApi: MarvelApi())))
-    
+    @State var menuOptionSelected: MenuOption = .comics
+    @State private var showMenu = false
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -20,7 +21,19 @@ struct HomeView: View {
                 
                 VStack {
                     HStack {
-                        Button(action: {}) {
+                        Menu {
+                            Button(action: {
+                                homeViewModel.handleMenuComicSelection()
+                            }) {
+                                Text("Comics")
+                            }
+                            
+                            Button(action: {
+                                homeViewModel.handleMenuCharacterSelection()
+                            }) {
+                                Text("Characters")
+                            }
+                        } label: {
                             Image(systemName: "list.bullet")
                                 .foregroundColor(.black)
                         }
@@ -43,9 +56,12 @@ struct HomeView: View {
                     
                     ScrollView {
                         VStack(spacing: 16) {
-                            CharacterView(characters: homeViewModel.state.characters)
-                                .padding(.horizontal)
-                            ComicView(comics: homeViewModel.state.comics)
+                            switch menuOptionSelected {
+                            case .comics:
+                                ComicView(comics: homeViewModel.state.comics)
+                            case .characters:
+                                CharacterView(characters: homeViewModel.state.characters)
+                            }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(.top, 16)
@@ -57,6 +73,13 @@ struct HomeView: View {
             }
             .onAppear() {
                 homeViewModel.fetchMarvelData()
+            }
+            .onReceive(homeViewModel.$state){ state in
+                if(state.isComicsPresent){
+                    self.menuOptionSelected = .comics
+                }else{
+                    self.menuOptionSelected = .characters
+                }
             }
         }
     }

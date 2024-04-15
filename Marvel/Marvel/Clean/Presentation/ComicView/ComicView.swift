@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct ComicView: View {
-    var comics: [ComicData]
+    var comics: [Comic]
     let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
@@ -16,9 +16,9 @@ struct ComicView: View {
         ZStack{
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(comics, id: \.id) { comic in
-                    HomeCellChip<ComicData>(item: comic,
-                                            getMovieImageUrl: {item in item.thumbnail.path + "." + item.thumbnail.fileExtension},
-                                            getMovieName: {item in item.title},
+                    HomeCellChip<Comic>(item: comic,
+                                        getMovieImageUrl: {item in (item.thumbnail?.path ?? "") + "." + (item.thumbnail?.fileExtension ?? "")},
+                                        getMovieName: {item in item.title ?? ""},
                                             onChipTapped: {
                         
                     })

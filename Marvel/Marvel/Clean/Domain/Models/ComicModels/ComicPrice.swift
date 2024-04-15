@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PriceInfo: Codable {
-    let type: String
-    let price: Double
+struct ComicPrice: Codable {
+    let type: String?
+    let price: Double?
 }

@@ -12,7 +12,7 @@ import Combine
 
 protocol MarvelRepository{
     func fetchAllCharactersData() -> AnyPublisher<[Character], CharacterError>
-    func fetchAllComicsData() -> AnyPublisher<[ComicData], ComicError>
+    func fetchAllComicsData() -> AnyPublisher<[Comic], ComicError>
 }
 
 class MarvelApiFetch: MarvelRepository{
@@ -37,14 +37,14 @@ class MarvelApiFetch: MarvelRepository{
         .eraseToAnyPublisher()
     }
     
-    func fetchAllComicsData() -> AnyPublisher<[ComicData], ComicError> {
-        return Future<[ComicData], ComicError> { promise in
+    func fetchAllComicsData() -> AnyPublisher<[Comic], ComicError> {
+        return Future<[Comic], ComicError> { promise in
             self.marvelApi.fetchComicsData(){ (response, err) in
                 guard let response = response, err == nil else {
                     promise(.failure(.badFetch))
                     return
                 }
-                promise(.success(response.data.results))
+                promise(.success(response.data?.results ?? []))
             }
         }
         .eraseToAnyPublisher()
