@@ -7,7 +7,6 @@
 
 import Foundation
 
-struct EventsItem: Codable{
-    let resourceURI: String
-    let name: String
+struct EventSummary: Codable{
+    let resourceURI, name: String?
 }

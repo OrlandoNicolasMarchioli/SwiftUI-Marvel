@@ -8,6 +8,5 @@
 import Foundation
 
 struct UrlsItem: Codable{
-    let type: String
-    let url: String
+    let type, url: String?
 }

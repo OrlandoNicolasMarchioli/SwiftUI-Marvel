@@ -17,6 +17,6 @@ struct Character: Codable{
     let comics: Comics
     let series: Series
     let stories: Stories
-    let events: Events
+    let events: EventList
     let urls: [UrlsItem]
 }
