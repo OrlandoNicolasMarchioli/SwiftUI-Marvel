@@ -11,7 +11,7 @@ import Combine
 
 class HomeViewModel: ObservableObject{
     @Published var state : HomeListState
-    static let defaultState = HomeListState(characters: [], comics: [], hasError: false, hasMessage: "", isCharactersPersent: false, isComicsPresent: true)
+    static let defaultState = HomeListState(characters: [], comics: [], hasError: false, hasMessage: "", isCharactersPersent: false, isComicsPresent: true, isTitlePresent: "Comics")
     private let marvelFetchUseCase : DefaultMarvelFetchUseCase
     private var cancellables: Set<AnyCancellable> = []
     
@@ -66,11 +66,11 @@ class HomeViewModel: ObservableObject{
     }
     
     func handleMenuComicSelection(){
-        self.state = state.clone(withIsisCharactersPersent: false,withIsComicsPresent: true)
+        self.state = state.clone(withIsCharactersPersent: false,withIsComicsPresent: true, withIsTitlePresent: "Comics")
     }
     
     func handleMenuCharacterSelection(){
-        self.state = state.clone(withIsisCharactersPersent: true,withIsComicsPresent: false)
+        self.state = state.clone(withHasMessage: "characters",withIsCharactersPersent: true, withIsComicsPresent: false, withIsTitlePresent: "Characters")
     }
     
 }

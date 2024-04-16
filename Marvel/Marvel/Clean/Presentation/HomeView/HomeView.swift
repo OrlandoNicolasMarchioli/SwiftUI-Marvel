@@ -55,7 +55,11 @@ struct HomeView: View {
                     .background(Color.white)
                     
                     ScrollView {
-                        VStack(spacing: 16) {
+                        VStack() {
+                            Text(homeViewModel.state.isTitlePresent)
+                                .foregroundColor(Color.white)
+                                .font(.title)
+                                .bold()
                             switch menuOptionSelected {
                             case .comics:
                                 ComicView(comics: homeViewModel.state.comics)
