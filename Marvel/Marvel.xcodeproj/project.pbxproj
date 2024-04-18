@@ -59,6 +59,7 @@
 		52A19EA12BAB296900ACA988 /* MarvelUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A19EA02BAB296900ACA988 /* MarvelUITestsLaunchTests.swift */; };
 		52A19EB72BAB2D9800ACA988 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52A19EB62BAB2D9800ACA988 /* Colors.xcassets */; };
 		52A19EBF2BAE027C00ACA988 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52A19EBE2BAE027C00ACA988 /* Localizable.strings */; };
+		DB8747642BD18E4C00BD6AF0 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8747632BD18E4C00BD6AF0 /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +135,7 @@
 		52A19EA02BAB296900ACA988 /* MarvelUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		52A19EB62BAB2D9800ACA988 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		52A19EBE2BAE027C00ACA988 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		DB8747632BD18E4C00BD6AF0 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				522276C42BB678EC0000FE41 /* MarvelApi.swift */,
+				DB8747632BD18E4C00BD6AF0 /* Config.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -575,6 +578,7 @@
 				522276B62BB3C17A0000FE41 /* EventSummary.swift in Sources */,
 				52A19E862BAB296500ACA988 /* ContentView.swift in Sources */,
 				528EA6422BBF2E8C000B525B /* ComicView.swift in Sources */,
+				DB8747642BD18E4C00BD6AF0 /* Config.swift in Sources */,
 				52A19E842BAB296500ACA988 /* MarvelApp.swift in Sources */,
 				522276B92BB3D2140000FE41 /* HomeView.swift in Sources */,
 				52530C762BC99E8F0019855B /* CreatorSummary.swift in Sources */,
