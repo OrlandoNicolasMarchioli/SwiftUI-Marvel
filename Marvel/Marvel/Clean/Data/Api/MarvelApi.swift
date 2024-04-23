@@ -10,7 +10,6 @@ import Foundation
 protocol MarvelApiProtocol {
     func fetchCharactersData(completion: @escaping (AllCharactersResponse?, Error?) -> Void)
     func fetchComicsData(completion: @escaping (ComicDataWrrapper?, Error?) -> Void)
-    func getAllCharacters() -> [Character]
 }
 
 class MarvelApi: MarvelApiProtocol {
@@ -94,10 +93,6 @@ class MarvelApi: MarvelApiProtocol {
     
     private func extractAllComicsFromResponse(response : ComicDataWrrapper) -> Void{
         self.comics.append(contentsOf: response.data?.results ?? [])
-    }
-    
-    func getAllCharacters() -> [Character]{
-        return self.characters
     }
   
     private func absoluteURLFactory(host: String, path: String, apiKey: String, hash: String) -> URL?{

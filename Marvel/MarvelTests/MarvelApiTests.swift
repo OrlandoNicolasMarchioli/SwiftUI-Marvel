@@ -1,65 +1,52 @@
 //
-//  MarvelApiTests.swift
+//  MarvelTests.swift
 //  MarvelTests
 //
-//  Created by Orlando Nicolas Marchioli on 17/04/2024.
+//  Created by Orlando Nicolas Marchioli on 20/03/2024.
 //
 
 import XCTest
 @testable import Marvel
 
+
 class MarvelApiTests: XCTestCase {
-    var marvelApi = MarvelApi()
-    var mockURLSession: URLSession!
-    var charactersURL: String = ""
-    var comicsURL: String = ""
-    var marvelResponse = MarvelResponse()
-    let decoder = JSONDecoder()
+    let marvelApi = MarvelApi.getInstance()
     
-    override func setUp() {
-        super.setUp()
-        let charactersURL = validateCredentialsAndUrl(credentials: "CREDENTIALS", url: "GET_ALL_CHARACTERS_URL")
-        let comicsURL = validateCredentialsAndUrl(credentials: "CREDENTIALS", url: "GET_ALL_COMICS_URL")
-        let configuration = URLSessionConfiguration.default
-        mockURLSession = URLSession(configuration: configuration)
-        marvelApi = MarvelApi()
-        guard let charactersData = marvelResponse.allCharactersResponseMock.data(using: .utf8) else {
-            XCTFail("Failed to convert JSON string to Data")
-            return
-        }
-        guard let comicsData = marvelResponse.allComicsResponseMock.data(using: .utf8) else {
-            XCTFail("Failed to convert JSON string to Data")
-            return
+    func testFetchCharactersData() {
+                
+        let expectation = self.expectation(description: "fetchCharactersData completion handler is called")
+        marvelApi.fetchCharactersData { response, error in
+            // Then: Assert that the expected data was returned
+            XCTAssertNotNil(response)
+            XCTAssertNil(error)
+            XCTAssertTrue(response?.data.results.contains { $0.name == "3-D Man" } ?? false)
+            
+            // Fulfill the expectation to indicate that the async work is complete
+            expectation.fulfill()
         }
         
+        waitForExpectations(timeout: 5.0, handler: nil)
     }
     
-    override func tearDown() {
-        mockURLSession = nil
-        super.tearDown()
-    }
-    
-    func testFetchCharactersDataSuccess() {
-
-    }
-    
-    func testFetchCharactersDataFailure() {
-
-
-    }
-    
-    func testAllCharactersAndAllComicsEncoding(){
-        
-    }
-    
-    private func validateCredentialsAndUrl(credentials: String, url: String) -> String{
-        guard let credentials = NSLocalizedString(credentials, comment: "") as String?,
-              let baseURLString = NSLocalizedString(url, comment: "") as String? else {
-            print("Error: Could not retrieve localized strings.")
-            return ""
+    func testFetchComicsData() {
+                
+        let expectation = self.expectation(description: "fetchComicsData completion handler is called")
+        marvelApi.fetchComicsData { response, error in
+            // Then: Assert that the expected data was returned
+            XCTAssertNotNil(response)
+            XCTAssertNil(error)
+            XCTAssertTrue(response?.data?.results?.contains { $0.title == "Gun Theory (2003) #4" } ?? false)
+            
+            // Fulfill the expectation to indicate that the async work is complete
+            expectation.fulfill()
         }
-        return baseURLString + credentials
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
     }
+    
+    
+    
     
 }
+
 
