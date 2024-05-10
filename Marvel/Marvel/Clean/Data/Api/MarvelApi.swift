@@ -10,88 +10,98 @@ import Foundation
 protocol MarvelApiProtocol {
     func fetchCharactersData(completion: @escaping (AllCharactersResponse?, Error?) -> Void)
     func fetchComicsData(completion: @escaping (ComicDataWrrapper?, Error?) -> Void)
-    func getAllCharacters() -> [Character]
 }
 
 class MarvelApi: MarvelApiProtocol {
-    
-    var characters: [Character] = []
-    var comics: [Comic] = []
+
+    static private var shared: MarvelApi?
+    private var characters: [Character] = []
+    private var comics: [Comic] = []
+    private var baseUrl: String
+    private var apiKey: String
+    private var hash: String
+    private var urlsSession: URLSession
+
+    private init(baseUrl: String, apiKey: String, hash: String, urlsSession: URLSession = URLSession.shared ) {
+        self.baseUrl = baseUrl
+        self.urlsSession = urlsSession
+        self.apiKey = apiKey
+        self.hash = hash
+    }
+
+    //TODO : To be improved 
+    static func getInstance() -> MarvelApiProtocol{
+      if let returnShared = shared{
+        return returnShared
+      } else {
+        let newInstance =
+          MarvelApi(baseUrl: ProcessInfo.processInfo.environment["baseUrl"] ?? "",
+                    apiKey: ProcessInfo.processInfo.environment["apiKey"] ?? "",
+                    hash: ProcessInfo.processInfo.environment["hash"] ?? "")
+        shared = newInstance
+        return newInstance
+      }
+    }
     
     func fetchCharactersData(completion: @escaping (AllCharactersResponse?, Error?) -> Void)  {
-        let urlString = validateCredentialsAndUrl(credentials: "CREDENTIALS", url: "GET_ALL_CHARACTERS_URL")
-                
-        guard let url = URL(string: urlString) else {
+        guard let url = absoluteURLFactory(host: baseUrl, path: "characters", apiKey: apiKey, hash: hash) else {
             print("Error: Invalid URL")
             return
         }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else {
-                print("Error fetching data: \(error?.localizedDescription ?? "Unknown error")")
-                completion(nil, error)
-                return
-            }
-            
-            do {
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(AllCharactersResponse.self, from: data)
-                self.extractAllMoviesFromResponse(response: response)
-                completion(response, nil)
-            } catch {
-                print("Error decoding data: \(error.localizedDescription)")
-                completion(nil, error)
-            }
-        }.resume()
+        performDataTask(urlString: url, completion: completion, decodingType: AllCharactersResponse.self, extractResponse: extractAllCharactersFromResponse(response:))
     }
     
     func fetchComicsData(completion: @escaping (ComicDataWrrapper?, Error?) -> Void) {
-        let urlString = validateCredentialsAndUrl(credentials: "CREDENTIALS", url: "GET_ALL_COMICS_URL")
-                
-        guard let url = URL(string: urlString) else {
+        guard let url = absoluteURLFactory(host: baseUrl, path: "comics", apiKey: apiKey, hash: hash) else {
             print("Error: Invalid URL")
             return
         }
         
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else {
-                print("Error fetching data: \(error?.localizedDescription ?? "Unknown error")")
-                completion(nil, error)
-                return
-            }
-            
-            do {
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(ComicDataWrrapper.self, from: data)
-                self.extractAllComicsFromResponse(response: response)
-                completion(response, nil)
-            } catch {
-                print("Error decoding data: \(error.localizedDescription)")
-                completion(nil, error)
-            }
-        }.resume()
+        performDataTask(urlString: url, completion: completion, decodingType: ComicDataWrrapper.self, extractResponse: extractAllComicsFromResponse(response:))
     }
-
     
-    private func extractAllMoviesFromResponse(response : AllCharactersResponse) -> Void{
+    private func performDataTask<T: Decodable>(urlString: URL, completion: @escaping (T?, Error?) -> Void, decodingType: T.Type, extractResponse: @escaping (T) -> Void) {
+         
+        urlsSession.dataTask(with: urlString) { data, _, error in
+             guard let data = data, error == nil else {
+                 print("Error fetching data: \(error?.localizedDescription ?? "Unknown error")")
+                 DispatchQueue.main.async {
+                     completion(nil, error)
+                 }
+                 return
+             }
+             
+             do {
+                 let decoder = JSONDecoder()
+                 let response = try decoder.decode(decodingType, from: data)
+                 extractResponse(response)
+                 DispatchQueue.main.async {
+                     completion(response, nil)
+                 }
+             } catch {
+                 print("Error decoding data: \(error.localizedDescription)")
+                 DispatchQueue.main.async {
+                     completion(nil, error)
+                 }
+             }
+         }.resume()
+     }
+  
+    private func extractAllCharactersFromResponse(response : AllCharactersResponse) -> Void{
         self.characters.append(contentsOf: response.data.results)
     }
     
     private func extractAllComicsFromResponse(response : ComicDataWrrapper) -> Void{
         self.comics.append(contentsOf: response.data?.results ?? [])
     }
-    
-    private func validateCredentialsAndUrl(credentials: String, url: String) -> String{
-        guard let credentials = NSLocalizedString(credentials, comment: "") as String?,
-              let baseURLString = NSLocalizedString(url, comment: "") as String? else {
-            print("Error: Could not retrieve localized strings.")
-            return ""
-        }
-        return baseURLString + credentials
+  
+    private func absoluteURLFactory(host: String, path: String, apiKey: String, hash: String) -> URL?{
+      var hostUrl = URL(string: host)
+      hostUrl?.append(path: path)
+      hostUrl?.append(queryItems: [URLQueryItem(name: "ts", value: "1")])
+      hostUrl?.append(queryItems: [URLQueryItem(name: "apikey", value: apiKey)])
+      hostUrl?.append(queryItems: [URLQueryItem(name: "hash", value: hash)])
+      return hostUrl
     }
-    
-    func getAllCharacters() -> [Character]{
-        return self.characters
-    }
-
 }
+

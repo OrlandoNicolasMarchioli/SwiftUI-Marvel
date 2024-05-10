@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct HomeView: View {
-    @ObservedObject var homeViewModel = HomeViewModel(movieFetchUseCase: DefaultMarvelFetchUseCase(characterRepository: MarvelApiFetch(movieApi: MarvelApi())))
+  @ObservedObject var homeViewModel = HomeViewModel(movieFetchUseCase: DefaultMarvelFetchUseCase(characterRepository: MarvelApiFetch(movieApi: MarvelApi.getInstance())))
     @State var menuOptionSelected: MenuOption = .comics
     @State private var showMenu = false
     var body: some View {
